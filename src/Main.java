@@ -61,7 +61,7 @@ public class Main {
         int attempts = 0;
         while ((!passwordIsCorrect) && (attempts < MAX_ATTEMPTS)) {
             printToConsole("\nDørmand: Hvad er dit kodeord?", false);
-            System.out.print("Forsøg " + (attempts + 1) + ": ");
+            System.out.print("Forsøg " + "(" + (attempts + 1) + "/3): ");
             userInput = input.nextLine();
             passwordIsCorrect = checkPassWord(userInput, user);
             attempts++;
