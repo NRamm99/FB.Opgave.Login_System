@@ -11,38 +11,38 @@ public class Main {
 
     public static void main(String[] args) {
 
-        while(!entryGranted){
+        while (!entryGranted) {
             promptMenu();
         }
     }
 
     public static void promptMenu() {
+        printToConsole("""
+                ---------- Vælg handling ----------
+                1... Forsøg indgang ved dørmand
+                2... ADMIN: Rediger gæsteliste
+                3... Tag hjem igen
+                """);
+        while (!input.hasNextInt()) {
             printToConsole("""
                     ---------- Vælg handling ----------
                     1... Forsøg indgang ved dørmand
                     2... ADMIN: Rediger gæsteliste
                     3... Tag hjem igen
                     """);
-            while (!input.hasNextInt()) {
-                printToConsole("""
-                        ---------- Vælg handling ----------
-                        1... Forsøg indgang ved dørmand
-                        2... ADMIN: Rediger gæsteliste
-                        3... Tag hjem igen
-                        """);
-                printToConsole("FEJL - indtast et gyldigt tal.", false);
-            }
-            int userInput = input.nextInt();
-            switch (userInput) {
-                case 1:
-                    promptLogin();
-                    break;
-                case 2:
-                    promptEdit();
-                    break;
-                case 3:
-                    break;
-            }
+            printToConsole("FEJL - indtast et gyldigt tal.", false);
+        }
+        int userInput = input.nextInt();
+        switch (userInput) {
+            case 1:
+                promptLogin();
+                break;
+            case 2:
+                promptEdit();
+                break;
+            case 3:
+                break;
+        }
     }
 
     public static void promptLogin() {
@@ -184,12 +184,15 @@ public class Main {
 
     private static void editUser() {
         while (true) {
-            printToConsole("\nIndtast venligst navnet på den bruger du ønsker at redigere.");
+            clearConsole();
+            printUserList();
+            printToConsole("\nIndtast venligst navnet på den bruger du ønsker at redigere.", false);
             System.out.print("Jeg ønsker af redigere: ");
+            input.nextLine();
             String userInput = input.nextLine();
             for (int n = 0; n <= usernames.length - 1; n++) {
                 if (userInput.equalsIgnoreCase(usernames[n])) {
-                    printToConsole("Du redigerer lige nu:\n" + usernames[n] + "\n" + passwords[n]);
+                    printToConsole("Du redigerer lige nu:\n" + "Navn: " + usernames[n] + "\n" + "Adgangskode: " + passwords[n]);
                     System.out.print("\nIndtast nye navn: ");
                     usernames[n] = input.nextLine();
                     System.out.print("\nIndtast nye adgangskode: ");
@@ -207,9 +210,10 @@ public class Main {
     }
 
     public static void printUserList() {
-        for (int n = 0; n <= usernames.length; n++) {
-            printToConsole("---------- GÆSTELISTE ----------");
-            System.out.println(n + 1 + ": " + usernames[n]);
+        printToConsole("---------- GÆSTELISTE ----------");
+        for (int n = 0; n <= usernames.length - 1; n++) {
+            if (!usernames[n].isEmpty())
+                System.out.println(n + 1 + ": " + usernames[n]);
         }
     }
 
