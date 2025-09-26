@@ -41,6 +41,7 @@ public class Main {
                 promptEdit();
                 break;
             case 3:
+                entryGranted = true;
                 break;
         }
     }
